@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
+using Abp.Linq;
 using Abp.Localization;
 using Abp.Runtime.Session;
 using MyDemo.MyProject.Authorization;
@@ -22,6 +22,8 @@ namespace MyDemo.MyProject.Users
     [AbpAuthorize(PermissionNames.Pages_Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
+        public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
+
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
@@ -39,6 +41,8 @@ namespace MyDemo.MyProject.Users
             _roleManager = roleManager;
             _roleRepository = roleRepository;
             _passwordHasher = passwordHasher;
+
+            AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
 
         public override async Task<UserDto> Create(CreateUserDto input)
@@ -130,7 +134,8 @@ namespace MyDemo.MyProject.Users
 
         protected override async Task<User> GetEntityByIdAsync(long id)
         {
-            var user = await Repository.GetAllIncluding(x => x.Roles).FirstOrDefaultAsync(x => x.Id == id);
+            var userQuery = Repository.GetAllIncluding(x => x.Roles).Where(x => x.Id == id);
+            var user = await AsyncQueryableExecuter.FirstOrDefaultAsync(userQuery);
 
             if (user == null)
             {

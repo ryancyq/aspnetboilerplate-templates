@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
+using Abp.Linq;
 using Abp.UI;
 using MyDemo.MyProject.Authorization;
 using MyDemo.MyProject.Authorization.Roles;
@@ -19,6 +19,8 @@ namespace MyDemo.MyProject.Roles
     [AbpAuthorize(PermissionNames.Pages_Roles)]
     public class RoleAppService : AsyncCrudAppService<Role, RoleDto, int, PagedResultRequestDto, CreateRoleDto, RoleDto>, IRoleAppService
     {
+        public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
+
         private readonly RoleManager _roleManager;
         private readonly UserManager _userManager;
 
@@ -27,6 +29,8 @@ namespace MyDemo.MyProject.Roles
         {
             _roleManager = roleManager;
             _userManager = userManager;
+
+            AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
 
         public override async Task<RoleDto> Create(CreateRoleDto input)
@@ -99,7 +103,8 @@ namespace MyDemo.MyProject.Roles
 
         protected override async Task<Role> GetEntityByIdAsync(int id)
         {
-            return await Repository.GetAllIncluding(x => x.Permissions).FirstOrDefaultAsync(x => x.Id == id);
+            var roleQuery = Repository.GetAllIncluding(x => x.Permissions).Where(x => x.Id == id);
+            return await AsyncQueryableExecuter.FirstOrDefaultAsync(roleQuery);
         }
 
         protected override IQueryable<Role> ApplySorting(IQueryable<Role> query, PagedResultRequestDto input)
