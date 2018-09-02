@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using Abp.Configuration;
 using Abp.Localization;
 using Abp.Net.Mail;
 
-namespace MyDemo.MyProject.EntityFrameworkCore.Seed.Host
+namespace MyDemo.MyProject.EntityFramework.Seed.Host
 {
     public class DefaultSettingsCreator
     {
@@ -27,7 +26,7 @@ namespace MyDemo.MyProject.EntityFrameworkCore.Seed.Host
 
         private void AddSettingIfNotExists(string name, string value, int? tenantId = null)
         {
-            if (_context.Settings.IgnoreQueryFilters().Any(s => s.Name == name && s.TenantId == tenantId && s.UserId == null))
+            if (_context.Settings.Any(s => s.Name == name && s.TenantId == tenantId && s.UserId == null))
             {
                 return;
             }

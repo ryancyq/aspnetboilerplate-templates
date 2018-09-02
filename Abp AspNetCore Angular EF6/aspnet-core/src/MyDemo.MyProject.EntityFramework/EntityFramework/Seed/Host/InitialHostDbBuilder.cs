@@ -1,4 +1,4 @@
-﻿namespace MyDemo.MyProject.EntityFrameworkCore.Seed.Host
+﻿namespace MyDemo.MyProject.EntityFramework.Seed.Host
 {
     public class InitialHostDbBuilder
     {

@@ -1,14 +1,14 @@
-﻿using Abp.EntityFrameworkCore.Configuration;
+﻿using System.Data.Entity;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
-using Abp.Zero.EntityFrameworkCore;
-using MyDemo.MyProject.EntityFrameworkCore.Seed;
+using Abp.Zero.EntityFramework;
+using MyDemo.MyProject.EntityFramework.Seed;
 
-namespace MyDemo.MyProject.EntityFrameworkCore
+namespace MyDemo.MyProject.EntityFramework
 {
     [DependsOn(
         typeof(MyProjectCoreModule), 
-        typeof(AbpZeroCoreEntityFrameworkCoreModule))]
+        typeof(AbpZeroCoreEntityFrameworkModule))]
     public class MyProjectEntityFrameworkModule : AbpModule
     {
         /* Used it tests to skip dbcontext registration, in order to use in-memory database of EF Core */
@@ -20,17 +20,7 @@ namespace MyDemo.MyProject.EntityFrameworkCore
         {
             if (!SkipDbContextRegistration)
             {
-                Configuration.Modules.AbpEfCore().AddDbContext<MyProjectDbContext>(options =>
-                {
-                    if (options.ExistingConnection != null)
-                    {
-                        MyProjectDbContextConfigurer.Configure(options.DbContextOptions, options.ExistingConnection);
-                    }
-                    else
-                    {
-                        MyProjectDbContextConfigurer.Configure(options.DbContextOptions, options.ConnectionString);
-                    }
-                });
+                Database.SetInitializer(new CreateDatabaseIfNotExists<MyProjectDbContext>());
             }
         }
 

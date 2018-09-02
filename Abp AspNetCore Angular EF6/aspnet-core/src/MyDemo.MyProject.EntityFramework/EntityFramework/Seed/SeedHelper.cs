@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Transactions;
-using Microsoft.EntityFrameworkCore;
 using Abp.Dependency;
 using Abp.Domain.Uow;
-using Abp.EntityFrameworkCore.Uow;
+using Abp.EntityFramework.Uow;
 using Abp.MultiTenancy;
-using MyDemo.MyProject.EntityFrameworkCore.Seed.Host;
-using MyDemo.MyProject.EntityFrameworkCore.Seed.Tenants;
+using MyDemo.MyProject.EntityFramework.Seed.Host;
+using MyDemo.MyProject.EntityFramework.Seed.Tenants;
 
-namespace MyDemo.MyProject.EntityFrameworkCore.Seed
+namespace MyDemo.MyProject.EntityFramework.Seed
 {
     public static class SeedHelper
     {

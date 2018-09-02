@@ -1,16 +1,16 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
-using Abp.EntityFrameworkCore;
-using Abp.EntityFrameworkCore.Repositories;
+using Abp.EntityFramework;
+using Abp.EntityFramework.Repositories;
 
-namespace MyDemo.MyProject.EntityFrameworkCore.Repositories
+namespace MyDemo.MyProject.EntityFramework.Repositories
 {
     /// <summary>
     /// Base class for custom repositories of the application.
     /// </summary>
     /// <typeparam name="TEntity">Entity type</typeparam>
     /// <typeparam name="TPrimaryKey">Primary key type of the entity</typeparam>
-    public abstract class MyProjectRepositoryBase<TEntity, TPrimaryKey> : EfCoreRepositoryBase<MyProjectDbContext, TEntity, TPrimaryKey>
+    public abstract class MyProjectRepositoryBase<TEntity, TPrimaryKey> : EfRepositoryBase<MyProjectDbContext, TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
         protected MyProjectRepositoryBase(IDbContextProvider<MyProjectDbContext> dbContextProvider)
