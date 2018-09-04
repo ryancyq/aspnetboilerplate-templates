@@ -19,8 +19,6 @@ namespace MyDemo.MyProject.Roles
     [AbpAuthorize(PermissionNames.Pages_Roles)]
     public class RoleAppService : AsyncCrudAppService<Role, RoleDto, int, PagedResultRequestDto, CreateRoleDto, RoleDto>, IRoleAppService
     {
-        public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
-
         private readonly RoleManager _roleManager;
         private readonly UserManager _userManager;
 
@@ -29,8 +27,6 @@ namespace MyDemo.MyProject.Roles
         {
             _roleManager = roleManager;
             _userManager = userManager;
-
-            AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
 
         public override async Task<RoleDto> Create(CreateRoleDto input)

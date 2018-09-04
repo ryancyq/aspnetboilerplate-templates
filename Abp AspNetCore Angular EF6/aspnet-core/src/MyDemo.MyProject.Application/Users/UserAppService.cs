@@ -22,8 +22,6 @@ namespace MyDemo.MyProject.Users
     [AbpAuthorize(PermissionNames.Pages_Users)]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
-        public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
-
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
@@ -41,8 +39,6 @@ namespace MyDemo.MyProject.Users
             _roleManager = roleManager;
             _roleRepository = roleRepository;
             _passwordHasher = passwordHasher;
-
-            AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
 
         public override async Task<UserDto> Create(CreateUserDto input)
@@ -121,7 +117,8 @@ namespace MyDemo.MyProject.Users
 
         protected override UserDto MapToEntityDto(User user)
         {
-            var roles = _roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
+            var userRoleIds = user.Roles.Select(ur => ur.RoleId);
+            var roles = _roleManager.Roles.Where(r => userRoleIds.Any(rId => rId == r.Id)).Select(r => r.NormalizedName);
             var userDto = base.MapToEntityDto(user);
             userDto.RoleNames = roles.ToArray();
             return userDto;
