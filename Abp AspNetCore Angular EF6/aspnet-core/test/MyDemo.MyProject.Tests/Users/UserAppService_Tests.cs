@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Shouldly;
 using Xunit;
 using Abp.Application.Services.Dto;
@@ -42,9 +42,9 @@ namespace MyDemo.MyProject.Tests.Users
                     UserName = "john.nash"
                 });
 
-            await UsingDbContextAsync(async context =>
+            UsingDbContext(context =>
             {
-                var johnNashUser = await context.Users.FirstOrDefaultAsync(u => u.UserName == "john.nash");
+                var johnNashUser = context.Users.FirstOrDefault(u => u.UserName == "john.nash");
                 johnNashUser.ShouldNotBeNull();
             });
         }
