@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <VersionPrefix>1.0.0.0</VersionPrefix>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <AssemblyName>MyDemo.MyProject.Tests</AssemblyName>
     <PackageId>MyDemo.MyProject.Tests</PackageId>
@@ -12,17 +12,17 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\MyDemo.MyProject.Application\MyDemo.MyProject.Application.csproj" />
-    <ProjectReference Include="..\..\src\MyDemo.MyProject.EntityFrameworkCore\MyDemo.MyProject.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\MyDemo.MyProject.EntityFramework\MyDemo.MyProject.EntityFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="Effort.EF6" Version="1.3.9" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="NSubstitute" Version="3.1.0" />
-    <PackageReference Include="Shouldly" Version="3.0.1" />
+    <PackageReference Include="Shouldly" Version="3.0.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
-    <PackageReference Include="Abp.TestBase" Version="3.9.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.4" />
+    <PackageReference Include="Abp.TestBase" Version="3.8.1" />
     <PackageReference Include="Castle.Core" Version="4.3.1" />
   </ItemGroup>
   <ItemGroup>

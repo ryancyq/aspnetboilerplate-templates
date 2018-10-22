@@ -118,7 +118,8 @@ namespace MyDemo.MyProject.Users
 
         protected override UserDto MapToEntityDto(User user)
         {
-            var roles = _roleManager.Roles.Where(r => user.Roles.Any(ur => ur.RoleId == r.Id)).Select(r => r.NormalizedName);
+            var userRoleIds = user.Roles.Select(ur => ur.RoleId);
+            var roles = _roleManager.Roles.Where(r => userRoleIds.Any(rId => rId == r.Id)).Select(r => r.NormalizedName);
             var userDto = base.MapToEntityDto(user);
             userDto.RoleNames = roles.ToArray();
             return userDto;
