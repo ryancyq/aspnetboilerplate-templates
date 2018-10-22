@@ -4,7 +4,7 @@ using Abp.Events.Bus;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using MyDemo.MyProject.Configuration;
-using MyDemo.MyProject.EntityFrameworkCore;
+using MyDemo.MyProject.EntityFramework;
 using MyDemo.MyProject.Migrator.DependencyInjection;
 
 namespace MyDemo.MyProject.Migrator
@@ -31,7 +31,7 @@ namespace MyDemo.MyProject.Migrator
 
             Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
             Configuration.ReplaceService(
-                typeof(IEventBus), 
+                typeof(IEventBus),
                 () => IocManager.IocContainer.Register(
                     Component.For<IEventBus>().Instance(NullEventBus.Instance)
                 )
