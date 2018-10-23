@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <AssemblyName>MyDemo.MyProject.Migrator</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -19,6 +19,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDemo.MyProject.Core\MyDemo.MyProject.Core.csproj" />
-    <ProjectReference Include="..\MyDemo.MyProject.EntityFrameworkCore\MyDemo.MyProject.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\MyDemo.MyProject.EntityFramework\MyDemo.MyProject.EntityFramework.csproj" />
   </ItemGroup>
 </Project>

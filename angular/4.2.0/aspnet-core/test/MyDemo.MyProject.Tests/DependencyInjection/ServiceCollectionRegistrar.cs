@@ -1,10 +1,9 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor.MsDependencyInjection;
 using Abp.Dependency;
-using MyDemo.MyProject.EntityFrameworkCore;
+using MyDemo.MyProject.EntityFramework;
 using MyDemo.MyProject.Identity;
 
 namespace MyDemo.MyProject.Tests.DependencyInjection
@@ -17,19 +16,7 @@ namespace MyDemo.MyProject.Tests.DependencyInjection
 
             IdentityRegistrar.Register(services);
 
-            services.AddEntityFrameworkInMemoryDatabase();
-
             var serviceProvider = WindsorRegistrationHelper.CreateServiceProvider(iocManager.IocContainer, services);
-
-            var builder = new DbContextOptionsBuilder<MyProjectDbContext>();
-            builder.UseInMemoryDatabase(Guid.NewGuid().ToString()).UseInternalServiceProvider(serviceProvider);
-
-            iocManager.IocContainer.Register(
-                Component
-                    .For<DbContextOptions<MyProjectDbContext>>()
-                    .Instance(builder.Options)
-                    .LifestyleSingleton()
-            );
         }
     }
 }

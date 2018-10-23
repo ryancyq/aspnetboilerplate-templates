@@ -11,7 +11,7 @@ using Abp.Reflection.Extensions;
 using Abp.Zero.Configuration;
 using MyDemo.MyProject.Authentication.JwtBearer;
 using MyDemo.MyProject.Configuration;
-using MyDemo.MyProject.EntityFrameworkCore;
+using MyDemo.MyProject.EntityFramework;
 
 namespace MyDemo.MyProject
 {

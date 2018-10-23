@@ -5,11 +5,12 @@ using Abp.AutoMapper;
 using Abp.Dependency;
 using Abp.Modules;
 using Abp.Configuration.Startup;
+using Abp.MultiTenancy;
 using Abp.Net.Mail;
 using Abp.TestBase;
 using Abp.Zero.Configuration;
-using Abp.Zero.EntityFrameworkCore;
-using MyDemo.MyProject.EntityFrameworkCore;
+using Abp.Zero.EntityFramework;
+using MyDemo.MyProject.EntityFramework;
 using MyDemo.MyProject.Tests.DependencyInjection;
 
 namespace MyDemo.MyProject.Tests
@@ -40,7 +41,7 @@ namespace MyDemo.MyProject.Tests
             // Use database for language management
             Configuration.Modules.Zero().LanguageManagement.EnableDbLocalization();
 
-            RegisterFakeService<AbpZeroDbMigrator<MyProjectDbContext>>();
+            RegisterFakeService<IAbpZeroDbMigrator>();
 
             Configuration.ReplaceService<IEmailSender, NullEmailSender>(DependencyLifeStyle.Transient);
         }
