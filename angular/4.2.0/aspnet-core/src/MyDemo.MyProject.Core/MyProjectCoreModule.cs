@@ -3,6 +3,7 @@ using Abp.Reflection.Extensions;
 using Abp.Timing;
 using Abp.Zero;
 using Abp.Zero.Configuration;
+using MyDemo.MyProject.Authorization;
 using MyDemo.MyProject.Authorization.Roles;
 using MyDemo.MyProject.Authorization.Users;
 using MyDemo.MyProject.Configuration;
@@ -24,6 +25,8 @@ namespace MyDemo.MyProject
             Configuration.Modules.Zero().EntityTypes.Tenant = typeof(Tenant);
             Configuration.Modules.Zero().EntityTypes.Role = typeof(Role);
             Configuration.Modules.Zero().EntityTypes.User = typeof(User);
+
+            Configuration.Modules.Zero().UserManagement.ExternalAuthenticationSources.Add<MyExternalAuthenticationSource>();
 
             MyProjectLocalizationConfigurer.Configure(Configuration.Localization);
 
