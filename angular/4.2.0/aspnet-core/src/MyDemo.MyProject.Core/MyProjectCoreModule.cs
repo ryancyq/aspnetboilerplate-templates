@@ -18,6 +18,7 @@ namespace MyDemo.MyProject
         public override void PreInitialize()
         {
             Configuration.Auditing.IsEnabledForAnonymousUsers = true;
+            Configuration.UnitOfWork.IsTransactional = false;
 
             // Declare entity types
             Configuration.Modules.Zero().EntityTypes.Tenant = typeof(Tenant);
